@@ -4,10 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
+    public static MainFrame instance=null;
 
     // Buduća polja za sve komponente view-a na glavnom prozoru
 
-    public MainFrame() {
+    private MainFrame() {
         initialize();
     }
 
@@ -26,5 +27,12 @@ public class MainFrame extends JFrame {
 
         MyToolBar toolBar = new MyToolBar(); // Kreiranje toolbar-a
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
+    }
+
+    public static MainFrame getInstance() {
+        if (instance == null) {
+            instance = new MainFrame();
+        }
+        return instance;
     }
 }
