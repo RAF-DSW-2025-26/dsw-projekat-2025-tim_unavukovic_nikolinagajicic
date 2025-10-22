@@ -14,6 +14,11 @@ public class Poruka {
         this.timeStamp = timeStamp;
     }
 
+    @Override
+    public String toString() {
+        return "["+tipPoruke+"] [ "+ timeStamp+"] " + poruka;
+    }
+
     public TipPoruke getTipPoruke() {
         return tipPoruke;
     }
