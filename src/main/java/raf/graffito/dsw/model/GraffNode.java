@@ -7,6 +7,6 @@ public abstract class GraffNode {
     public GraffNode findByName(){
 
 
-        return ;
+        return null ;
     }
 }

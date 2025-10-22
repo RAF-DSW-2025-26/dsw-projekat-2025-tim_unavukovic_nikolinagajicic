@@ -22,7 +22,7 @@ public class MessageGenerator implements Publisher {
     @Override
     public void notifyAllSubscribers(Object object) {
         for (Subscriber subscriber : listaSubscribera) {
-            notifyAllSubscribers(subscriber);
+            subscriber.update(object);
         }
 
     }

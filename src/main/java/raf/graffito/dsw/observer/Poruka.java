@@ -8,10 +8,10 @@ public class Poruka {
     private String poruka;
     private LocalDateTime timeStamp;
 
-    public Poruka(TipPoruke tipPoruke, String poruka, LocalDateTime timeStamp) {
+    public Poruka(TipPoruke tipPoruke, String poruka) {
         this.tipPoruke = tipPoruke;
         this.poruka = poruka;
-        this.timeStamp = timeStamp;
+        this.timeStamp =LocalDateTime.now();
     }
 
     @Override

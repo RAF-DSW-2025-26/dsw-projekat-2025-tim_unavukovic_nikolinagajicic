@@ -11,6 +11,8 @@ public class FileLogger implements Logger{
     public void ispisi(Poruka poruka) {
         try {
             PrintWriter pw= new PrintWriter(new FileWriter("log.txt"),true);
+            pw.println(poruka);
+            pw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

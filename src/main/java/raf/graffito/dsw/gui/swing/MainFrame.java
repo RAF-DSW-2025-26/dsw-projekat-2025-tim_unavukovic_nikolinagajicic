@@ -1,11 +1,13 @@
 package raf.graffito.dsw.gui.swing;
 
 import raf.graffito.dsw.actions.ActionManager;
+import raf.graffito.dsw.observer.Poruka;
+import raf.graffito.dsw.observer.Subscriber;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Subscriber {
     public static MainFrame instance=null;
     private ActionManager actionManager;
 
@@ -43,5 +45,12 @@ public class MainFrame extends JFrame {
 
     public ActionManager getActionManager() {
         return actionManager;
+    }
+
+    @Override
+    public void update(Object object) {
+        if (object instanceof Poruka){
+            JOptionPane.showMessageDialog(null,((Poruka)object).toString(), String.valueOf(((Poruka) object).getTipPoruke()),JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }
