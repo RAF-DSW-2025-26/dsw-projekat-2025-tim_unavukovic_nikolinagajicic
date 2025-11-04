@@ -11,11 +11,12 @@ public class Project extends GraffNodeComposite {
     private List<Presentation> listaPrezentacija = new ArrayList<>();
     private List<Slide> listaSlajdova = new ArrayList<>();
 
-    public Project(String title, String author, int member) {
+    public Project(String title, String author, int member, GraffNode parent ) {
+        super(title, parent);
         this.title = title;
         this.author = author;
         this.member = member;
-        listaPrezentacija.add(new Presentation());
+        listaPrezentacija.add(new Presentation("Prezentacija", this));
     }
 
     public String getTitle() {
