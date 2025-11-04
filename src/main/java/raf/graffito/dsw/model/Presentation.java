@@ -7,6 +7,10 @@ public class Presentation extends GraffNodeComposite {
 
     private List<Slide> listaSlajdova=new ArrayList<Slide>();
 
+    public Presentation(String ime, GraffNode parent) {
+        super(ime, parent);
+    }
+
     public List<Slide> getListaSlajdova() {
         return listaSlajdova;
     }
