@@ -11,6 +11,8 @@ public abstract class GraffNodeComposite extends GraffNode {
         super(ime, parent);
     }
 
+    public abstract void addChild(GraffNode child);
+
     @Override
     public GraffNode findByName(String name) {
         if(this.getIme().equals(name)){

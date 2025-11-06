@@ -1,11 +1,13 @@
 package raf.graffito.dsw.core;
 import raf.graffito.dsw.gui.swing.MainFrame;
+import raf.graffito.dsw.gui.swing.repository.GraffRepositoryImpl;
 import raf.graffito.dsw.observer.MessageGenerator;
 import raf.graffito.dsw.observer.Poruka;
 import raf.graffito.dsw.observer.TipPoruke;
 import raf.graffito.dsw.observer.factory.ConsoleLogger;
 import raf.graffito.dsw.observer.factory.FileLogger;
 import raf.graffito.dsw.observer.factory.LoggerFactory;
+import raf.graffito.dsw.repository.GraffRepository;
 
 public class ApplicationFramework {
 
@@ -13,15 +15,14 @@ public class ApplicationFramework {
     private LoggerFactory loggerFactory;
     private ConsoleLogger consoleLogger;
     private FileLogger fileLogger;
-
+    protected GraffRepository graffRepository;
 
     public static ApplicationFramework instance= null;
     // Buduća polja za model celog projekta
 
-    private ApplicationFramework(){
-        initialize();
-        messageGenerator.notifyAllSubscribers(new Poruka(TipPoruke.OBAVESTENJE,"proba"));
-
+    private ApplicationFramework() {
+//        messageGenerator.notifyAllSubscribers(new Poruka(TipPoruke.OBAVESTENJE,"proba"));
+        this.graffRepository = new GraffRepositoryImpl();
     }
 
     public void initialize(){
@@ -44,5 +45,13 @@ public class ApplicationFramework {
             instance = new ApplicationFramework();
         }
         return instance;
+    }
+
+    public GraffRepository getGraffRepository() {
+        return graffRepository;
+    }
+
+    public void setGraffRepository(GraffRepository graffRepository) {
+        this.graffRepository = graffRepository;
     }
 }

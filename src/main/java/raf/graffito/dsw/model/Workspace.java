@@ -7,6 +7,10 @@ public class Workspace extends GraffNodeComposite{
 
     private List<Project> listaProjekata= new ArrayList<>();
 
+    public Workspace(String ime) {
+        super(ime, null);
+    }
+
 
     public List<Project> getListaProjekata() {
         return listaProjekata;
@@ -14,5 +18,12 @@ public class Workspace extends GraffNodeComposite{
 
     public void setListaProjekata(List<Project> listaProjekata) {
         this.listaProjekata = listaProjekata;
+    }
+
+    @Override
+    public void addChild(GraffNode child) {
+        if(child instanceof Project){
+            listaProjekata.add((Project) child);
+        }
     }
 }

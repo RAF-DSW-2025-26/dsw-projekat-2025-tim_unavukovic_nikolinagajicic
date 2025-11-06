@@ -1,6 +1,9 @@
 package raf.graffito.dsw.gui.swing;
 
 import raf.graffito.dsw.actions.ActionManager;
+import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.gui.swing.tree.GraffTree;
+import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
 import raf.graffito.dsw.observer.Poruka;
 import raf.graffito.dsw.observer.Subscriber;
 
@@ -10,6 +13,8 @@ import java.awt.*;
 public class MainFrame extends JFrame implements Subscriber {
     public static MainFrame instance=null;
     private ActionManager actionManager;
+    private GraffTree graffTree;
+
 
     // Buduća polja za sve komponente view-a na glavnom prozoru
 
@@ -34,6 +39,18 @@ public class MainFrame extends JFrame implements Subscriber {
 
         MyToolBar toolBar = new MyToolBar(actionManager); // Kreiranje toolbar-a
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
+
+        graffTree = new GraffTreeImplementation();
+
+        JTree projectExplorer = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkSpace());
+        JPanel desktop = new JPanel();
+
+        JScrollPane scroll=new JScrollPane(projectExplorer);
+        scroll.setMinimumSize(new Dimension(200,150));
+        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scroll,desktop);
+        getContentPane().add(split,BorderLayout.CENTER);
+        split.setDividerLocation(250);
+        split.setOneTouchExpandable(true);
     }
 
     public static MainFrame getInstance() {
@@ -53,4 +70,10 @@ public class MainFrame extends JFrame implements Subscriber {
             JOptionPane.showMessageDialog(null,((Poruka)object).toString(), String.valueOf(((Poruka) object).getTipPoruke()),JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
+    public GraffTree getGraffTree() {
+        return graffTree;
+    }
+
+
 }
