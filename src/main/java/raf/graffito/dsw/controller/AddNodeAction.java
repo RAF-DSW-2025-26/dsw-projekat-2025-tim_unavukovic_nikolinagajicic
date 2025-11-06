@@ -19,6 +19,12 @@ public class AddNodeAction extends AbstactGraffAction {
         putValue(SHORT_DESCRIPTION, "New Project");
     }
 
+
+    /* putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK)); // Ovo je prečica za izlaz
+        putValue(SMALL_ICON, loadIcon("/images/aboutUs.png")); // Postavljanje ikonice
+        putValue(NAME, "About Us"); // Ime akcije
+        putValue(SHORT_DESCRIPTION, "About US"); // Tooltip*/
+
     public void actionPerformed(ActionEvent arg0) {
         GraffTreeItem selected = (GraffTreeItem) MainFrame.getInstance().getGraffTree().getSelectedNode();
         MainFrame.getInstance().getGraffTree().addChild(selected);
