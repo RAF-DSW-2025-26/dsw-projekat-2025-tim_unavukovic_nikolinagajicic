@@ -11,6 +11,13 @@ public class Presentation extends GraffNodeComposite {
         super(ime, parent);
     }
 
+    @Override
+    public void addChild(GraffNode child) {
+        if(child instanceof Slide){
+            listaSlajdova.add((Slide) child);
+        }
+    }
+
     public List<Slide> getListaSlajdova() {
         return listaSlajdova;
     }

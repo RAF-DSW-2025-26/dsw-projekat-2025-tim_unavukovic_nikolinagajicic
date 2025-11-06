@@ -58,4 +58,13 @@ public class Project extends GraffNodeComposite {
     public void setMember(int member) {
         this.member = member;
     }
+
+    @Override
+    public void addChild(GraffNode child) {
+        if(child instanceof Presentation){
+            listaPrezentacija.add((Presentation) child);
+        }else if(child instanceof Slide){
+            listaSlajdova.add((Slide) child);
+        }
+    }
 }

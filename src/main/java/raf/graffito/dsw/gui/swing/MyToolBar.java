@@ -13,6 +13,7 @@ public class MyToolBar extends JToolBar {
 
         add(actionManager.getExitAction());
         add(actionManager.getAboutUsAction());
+        add(actionManager.getAddNodeAction());
 
     }
 }
