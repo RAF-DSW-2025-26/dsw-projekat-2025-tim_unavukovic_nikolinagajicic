@@ -15,6 +15,7 @@ public abstract class GraffNodeComposite extends GraffNode {
 
     @Override
     public GraffNode findByName(String name) {
+        System.out.println(getIme()+" : "+name);
         if(this.getIme().equals(name)){
             return this;
         }
@@ -25,5 +26,9 @@ public abstract class GraffNodeComposite extends GraffNode {
             }
         }
         return null;
+    }
+
+    public List<GraffNode> getListaCvorova() {
+        return listaCvorova;
     }
 }

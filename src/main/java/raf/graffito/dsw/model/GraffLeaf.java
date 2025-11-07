@@ -7,6 +7,7 @@ public abstract class GraffLeaf extends GraffNode{
 
     @Override
     public GraffNode findByName(String name) {
+        System.out.println(getIme()+" : "+name);
         if(this.getIme().equals(name)){
             return this;
         }

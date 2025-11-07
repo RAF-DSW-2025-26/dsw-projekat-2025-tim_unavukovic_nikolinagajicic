@@ -9,5 +9,5 @@ public interface GraffTree {
     GraffTreeView generateTree(Workspace workspace);
     void addChild(GraffTreeItem parent);
     GraffTreeItem getSelectedNode();
-
+    void removeNode(GraffTreeItem item);
 }
