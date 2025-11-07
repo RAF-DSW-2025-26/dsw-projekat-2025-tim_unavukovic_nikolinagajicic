@@ -11,7 +11,6 @@ public class Workspace extends GraffNodeComposite{
         super(ime, null);
     }
 
-
     public List<Project> getListaProjekata() {
         return listaProjekata;
     }
@@ -24,6 +23,7 @@ public class Workspace extends GraffNodeComposite{
     public void addChild(GraffNode child) {
         if(child instanceof Project){
             listaProjekata.add((Project) child);
+            getListaCvorova().add(child);
         }
     }
 }

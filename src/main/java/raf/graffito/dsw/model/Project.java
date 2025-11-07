@@ -63,8 +63,10 @@ public class Project extends GraffNodeComposite {
     public void addChild(GraffNode child) {
         if(child instanceof Presentation){
             listaPrezentacija.add((Presentation) child);
+            getListaCvorova().add(child);
         }else if(child instanceof Slide){
             listaSlajdova.add((Slide) child);
+            getListaCvorova().add(child);
         }
     }
 }

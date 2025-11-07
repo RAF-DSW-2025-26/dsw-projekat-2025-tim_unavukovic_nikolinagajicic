@@ -54,4 +54,8 @@ public class ApplicationFramework {
     public void setGraffRepository(GraffRepository graffRepository) {
         this.graffRepository = graffRepository;
     }
+
+    public MessageGenerator getMessageGenerator() {
+        return messageGenerator;
+    }
 }

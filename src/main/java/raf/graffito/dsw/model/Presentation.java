@@ -15,6 +15,7 @@ public class Presentation extends GraffNodeComposite {
     public void addChild(GraffNode child) {
         if(child instanceof Slide){
             listaSlajdova.add((Slide) child);
+            getListaCvorova().add(child);
         }
     }
 

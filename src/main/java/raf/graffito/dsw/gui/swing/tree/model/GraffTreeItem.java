@@ -2,7 +2,10 @@ package raf.graffito.dsw.gui.swing.tree.model;
 
 
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.GraffNode;
+import raf.graffito.dsw.observer.Poruka;
+import raf.graffito.dsw.observer.TipPoruke;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -26,7 +29,13 @@ public class GraffTreeItem extends DefaultMutableTreeNode {
     }
 
     public void setName(String name) {
-        this.graffNode.setIme(name);
+        GraffNode graffNode = getGraffNode().getParent().findByName(name);
+        if(graffNode == null) {
+            System.out.println("Cao");
+            this.graffNode.setIme(name);
+        }else{
+            ApplicationFramework.getInstance().getMessageGenerator().notifyAllSubscribers(new Poruka(TipPoruke.GRESKA,"Vec postoji cvor sa tim imenom u okviru iste putanje"));
+        }
     }
 
     public GraffNode getGraffNode() {

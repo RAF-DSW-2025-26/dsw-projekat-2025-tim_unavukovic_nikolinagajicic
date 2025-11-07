@@ -1,5 +1,6 @@
 package raf.graffito.dsw.gui.swing.tree;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.model.GraffTreeItem;
 import raf.graffito.dsw.gui.swing.tree.view.GraffTreeView;
 import raf.graffito.dsw.model.*;
@@ -7,6 +8,8 @@ import raf.graffito.dsw.model.factory.GraffNodeStore;
 import raf.graffito.dsw.model.factory.Presentationfactory;
 import raf.graffito.dsw.model.factory.ProjectFactory;
 import raf.graffito.dsw.model.factory.SlideFactory;
+import raf.graffito.dsw.observer.Poruka;
+import raf.graffito.dsw.observer.TipPoruke;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -37,6 +40,21 @@ public class GraffTreeImplementation implements GraffTree {
         treeView.expandPath(treeView.getSelectionPath()); // Prosirujemo parent cvor u view-u da bi se video novi child
         SwingUtilities.updateComponentTreeUI(treeView); // Osvezavamo view
     }
+
+    @Override
+    public void removeNode(GraffTreeItem node) {
+        if(node.getGraffNode() instanceof Workspace){
+            ApplicationFramework.getInstance().getMessageGenerator().notifyAllSubscribers(new Poruka(TipPoruke.GRESKA, "Workspace ne moze da se obrise"));
+            return;
+        }
+        node.removeFromParent();
+        if(node.getGraffNode() instanceof GraffNodeComposite){
+//            ((GraffNodeComposite) node.getGraffNode().getParent()).getListaCvorova().remove(node.getGraffNode());
+            ((GraffNodeComposite) node.getGraffNode()).getListaCvorova().clear();
+        }
+        SwingUtilities.updateComponentTreeUI(treeView); // Osvezavamo view
+    }
+
 
     private static GraffNodeStore returnGraffNodeStore(GraffNode parent) {
 
