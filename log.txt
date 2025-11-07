@@ -1,1 +1,1 @@
-[OBAVESTENJE] [ 2025-11-06T11:00:26.573125100] proba
+[GRESKA] [ 2025-11-07T20:15:38.689544200] Ova akcija je dostupna samo za Projekat tip cvora
