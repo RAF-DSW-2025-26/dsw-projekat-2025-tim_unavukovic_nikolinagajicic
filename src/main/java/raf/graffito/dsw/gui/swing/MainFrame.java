@@ -14,6 +14,7 @@ public class MainFrame extends JFrame implements Subscriber {
     public static MainFrame instance=null;
     private ActionManager actionManager;
     private GraffTree graffTree;
+    private JTabbedPane tabbedPane;
 
 
     // Buduća polja za sve komponente view-a na glavnom prozoru
@@ -23,6 +24,8 @@ public class MainFrame extends JFrame implements Subscriber {
     }
 
     private void initialize() {
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         Toolkit kit = Toolkit.getDefaultToolkit(); // Toolkit omogućava interakciju sa platformom
         Dimension screenSize = kit.getScreenSize(); // Veličina ekrana
         int screenHeight = screenSize.height;
@@ -43,14 +46,15 @@ public class MainFrame extends JFrame implements Subscriber {
         graffTree = new GraffTreeImplementation();
 
         JTree projectExplorer = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkSpace());
-        JPanel desktop = new JPanel();
+
 
         JScrollPane scroll=new JScrollPane(projectExplorer);
         scroll.setMinimumSize(new Dimension(200,150));
-        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scroll,desktop);
+        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scroll,tabbedPane);
         getContentPane().add(split,BorderLayout.CENTER);
         split.setDividerLocation(250);
         split.setOneTouchExpandable(true);
+
     }
 
     public static MainFrame getInstance() {
@@ -75,5 +79,7 @@ public class MainFrame extends JFrame implements Subscriber {
         return graffTree;
     }
 
-
+    public JTabbedPane getTabbedPane() {
+        return tabbedPane;
+    }
 }
