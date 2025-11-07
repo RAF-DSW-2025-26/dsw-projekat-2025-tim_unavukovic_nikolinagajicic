@@ -16,7 +16,6 @@ public class Project extends GraffNodeComposite {
         this.title = title;
         this.author = author;
         this.member = member;
-        listaPrezentacija.add(new Presentation("Prezentacija", this));
     }
 
     public String getTitle() {
