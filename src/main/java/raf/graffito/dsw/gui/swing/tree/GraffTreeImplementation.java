@@ -23,9 +23,9 @@ public class GraffTreeImplementation implements GraffTree {
 
     @Override
     public GraffTreeView generateTree(Workspace workspace){
-        GraffTreeItem root = new GraffTreeItem(workspace); // Kreiramo root cvor stabla
-        treeModel = new DefaultTreeModel(root); // Kreiramo model stabla sa root cvorom
-        treeView = new GraffTreeView(treeModel); // Kreiramo view stabla sa modelom
+        GraffTreeItem root = new GraffTreeItem(workspace);
+        treeModel = new DefaultTreeModel(root);
+        treeView = new GraffTreeView(treeModel);
         return treeView;
     }
 

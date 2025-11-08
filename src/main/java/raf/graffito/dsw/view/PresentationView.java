@@ -43,11 +43,9 @@ public class PresentationView extends JPanel implements Subscriber {
         slajdovi.add(slide);
         slide.setOpaque(true);
         slide.setBackground(Color.WHITE);
-        // okvir + donji razmak 10px
         Border ivica  = BorderFactory.createLineBorder(new Color(200,200,200), 1);
         Border razmak = BorderFactory.createEmptyBorder(0, 0, 10, 0);
         slide.setBorder(BorderFactory.createCompoundBorder(razmak, ivica));
-        // držimo ga centriranog kada je uži od viewporta
         slide.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         content.add(slide);

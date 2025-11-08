@@ -12,10 +12,10 @@ import java.awt.event.KeyEvent;
 public class AboutUsAction extends AbstactGraffAction {
 
     public AboutUsAction() {
-        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK)); // Ovo je prečica za izlaz
-        putValue(SMALL_ICON, loadIcon("/images/aboutUs.png")); // Postavljanje ikonice
-        putValue(NAME, "About Us"); // Ime akcije
-        putValue(SHORT_DESCRIPTION, "About US"); // Tooltip
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
+        putValue(SMALL_ICON, loadIcon("/images/aboutUs.png"));
+        putValue(NAME, "About Us");
+        putValue(SHORT_DESCRIPTION, "About US");
     }
 
     @Override

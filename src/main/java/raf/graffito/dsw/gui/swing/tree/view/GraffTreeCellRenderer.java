@@ -9,11 +9,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 import java.net.URL;
 
-/**
- *  Ovo je klasa koja nasledjuje DefaultTreeCellRenderer i koristi se za prilagodjavanje izgleda cvorova u JTree komponenti.
- *  Metoda getTreeCellRendererComponent je override-ovana kako bi se postavila odgovarajuca ikona za svaki cvor u zavisnosti od tipa MapNode-a koji
- *  cvor predstavlja (ProjectExplorer ili Project).
- */
 public class GraffTreeCellRenderer extends DefaultTreeCellRenderer {
 
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
