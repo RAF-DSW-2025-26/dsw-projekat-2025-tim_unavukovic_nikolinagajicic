@@ -50,7 +50,7 @@ public class GraffTreeImplementation implements GraffTree {
         node.removeFromParent();
         if(node.getGraffNode() instanceof GraffNodeComposite){
 //            ((GraffNodeComposite) node.getGraffNode().getParent()).getListaCvorova().remove(node.getGraffNode());
-            ((GraffNodeComposite) node.getGraffNode()).getListaCvorova().clear();
+            ((GraffNodeComposite) node.getGraffNode()).obrisiListu();
         }
         SwingUtilities.updateComponentTreeUI(treeView); // Osvezavamo view
     }
@@ -73,7 +73,7 @@ public class GraffTreeImplementation implements GraffTree {
     private GraffNode createChild(GraffNode parent) {
         GraffNodeStore graffNodeStore = returnGraffNodeStore(parent);
 
-        return graffNodeStore.createNode(parent);
+        return graffNodeStore.orderNode(parent);
     }
 
 }

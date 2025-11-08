@@ -6,7 +6,7 @@ import raf.graffito.dsw.observer.Subscriber;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Presentation extends GraffNodeComposite implements Publisher {
+public class Presentation extends GraffNodeComposite {
     private List<Subscriber> subscribers = new ArrayList<>();
 
     private List<Slide> listaSlajdova=new ArrayList<Slide>();
@@ -31,20 +31,4 @@ public class Presentation extends GraffNodeComposite implements Publisher {
         this.listaSlajdova = listaSlajdova;
     }
 
-    @Override
-    public void addSubscriber(Subscriber subscriber) {
-        subscribers.add(subscriber);
-    }
-
-    @Override
-    public void removeSubscriber(Subscriber subscriber) {
-        subscribers.remove(subscriber);
-    }
-
-    @Override
-    public void notifyAllSubscribers(Object object) {
-        for(Subscriber subscriber : subscribers){
-            subscriber.update(object);
-        }
-    }
 }

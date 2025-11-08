@@ -28,6 +28,11 @@ public abstract class GraffNodeComposite extends GraffNode {
         return null;
     }
 
+    public void obrisiListu(){
+        listaCvorova.clear();
+        removeAllSubscribers();
+    }
+
     public List<GraffNode> getListaCvorova() {
         return listaCvorova;
     }

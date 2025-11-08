@@ -4,7 +4,7 @@ import raf.graffito.dsw.model.GraffNode;
 
 public abstract class GraffNodeStore {
 
-    public GraffNode orderPizza(GraffNode parent) {
+    public GraffNode orderNode(GraffNode parent) {
         GraffNode node;
         node = createNode(parent);
 

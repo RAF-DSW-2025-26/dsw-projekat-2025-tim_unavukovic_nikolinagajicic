@@ -1,5 +1,6 @@
 package raf.graffito.dsw.view;
 
+import raf.graffito.dsw.gui.swing.MainFrame;
 import raf.graffito.dsw.model.Presentation;
 import raf.graffito.dsw.observer.Subscriber;
 
@@ -12,16 +13,20 @@ import java.util.List;
 public class PresentationView extends JPanel implements Subscriber {
     private Presentation presentation;
 
-    private String naslov;
-    private String autor;
     private List<SlideView> slajdovi = new ArrayList<>();
 
     private JScrollPane scrollPane;
     private JPanel content;
+    private JLabel naslov = new JLabel();
+    private JTabbedPane tabbedPane;
 
-    public PresentationView(Presentation presentation) {
+    public PresentationView(Presentation presentation, JTabbedPane tabbedPane) {
         super(new BorderLayout());
         this.presentation = presentation;
+        this.tabbedPane = tabbedPane;
+
+        naslov.setText("Naslov: " + presentation.getIme());
+        add(naslov, BorderLayout.NORTH);
 
         content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
@@ -67,18 +72,30 @@ public class PresentationView extends JPanel implements Subscriber {
 
     @Override
     public void update(Object object) {
+        if(object instanceof Presentation) {
+            presentation = (Presentation) object;
+            naslov.setText("Naslov: " + presentation.getIme());
 
-    }
+            for(int i = 0; i< tabbedPane.getTabCount(); i++){
+                Component c = tabbedPane.getComponentAt(i);
+                if(c instanceof PresentationView){
+                    if(c.equals(this)){
+                        tabbedPane.setTitleAt(i, presentation.getIme());
+                    }
+                }
+            }
 
-    public String getNaslov() {
-        return naslov;
-    }
+        }
 
-    public String getAutor() {
-        return autor;
+        revalidate();
+        repaint();
     }
 
     public List<SlideView> getSlajdovi() {
         return slajdovi;
+    }
+
+    public JTabbedPane getTabbedPane() {
+        return tabbedPane;
     }
 }

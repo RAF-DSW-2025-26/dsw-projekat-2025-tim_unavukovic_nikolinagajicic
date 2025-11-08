@@ -9,10 +9,12 @@ import raf.graffito.dsw.model.Presentation;
 import raf.graffito.dsw.model.Project;
 import raf.graffito.dsw.model.Slide;
 import raf.graffito.dsw.view.PresentationView;
+import raf.graffito.dsw.view.ProjectView;
 import raf.graffito.dsw.view.SlideView;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
+import java.awt.*;
 
 public class GraffTreeView extends JTree {
 
@@ -45,13 +47,33 @@ public class GraffTreeView extends JTree {
 
     private void onNodeDoubleClick(GraffTreeItem node, javax.swing.tree.TreePath path) {
         if(node.getGraffNode() instanceof Project){
+            ProjectView projectView = new ProjectView((Project)node.getGraffNode());
+
+            // sa ovom for petljom izbegavamo dodavanje istog projekta u tabove ponovo
+            for(int i = 0; i<MainFrame.getInstance().getTabbedPane().getTabCount(); i++){
+                Component c = MainFrame.getInstance().getTabbedPane().getComponentAt(i);
+                if(c instanceof ProjectView){
+                    if(c.equals(projectView)){
+                        return;
+                    }
+                }
+            }
+
+
+            node.getGraffNode().addSubscriber(projectView);
+
+            MainFrame.getInstance().getTabbedPane().addTab(node.getGraffNode().getIme(), null, projectView, "Osnovne informacije");
+
             for(Presentation presentation : ((Project) node.getGraffNode()).getListaPrezentacija()){
-                PresentationView presentationView = new PresentationView(presentation);
+                PresentationView presentationView = new PresentationView(presentation, projectView.getTabbedPane());
+                presentation.addSubscriber(presentationView);
+
                 for(Slide slide : presentation.getListaSlajdova()){
                     SlideView slideView = new SlideView(slide);
+                    slide.addSubscriber(slideView);
                     presentationView.addSlide(slideView);
                 }
-                MainFrame.getInstance().getTabbedPane().addTab(presentation.getIme(), null, presentationView, "Osnovne informacije");
+                projectView.getTabbedPane().addTab(presentation.getIme(), null, presentationView, "Osnovne informacije");
 
             }
 

@@ -57,7 +57,7 @@ public class GraffTreeCellEditor extends DefaultTreeCellEditor implements Action
 
         GraffTreeItem clicked = (GraffTreeItem) clickedOn;
         clicked.setName(e.getActionCommand());
-
+        clicked.getGraffNode().setIme(clicked.getGraffNode().getIme());
     }
 
 
