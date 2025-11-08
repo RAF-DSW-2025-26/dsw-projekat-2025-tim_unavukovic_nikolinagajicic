@@ -15,17 +15,6 @@ import java.awt.*;
 public class ProjectFactory extends GraffNodeStore {
 
 
-    //    @Override
-//    public GraffNode createNode(GraffNode parent) {
-//        int broj = ((GraffNodeComposite) parent).getListaCvorova().size()+1;
-//
-//        String autor = JOptionPane.showInputDialog(null, "Unesite naziv autora:", "Unos autora", JOptionPane.PLAIN_MESSAGE);
-//        if (autor != null) {
-//            autor = autor.trim();
-//        }
-//
-//        return new Project("Projekat " + broj, autor, 1, parent);
-//    }
     @Override
     public GraffNode createNode(GraffNode parent) {
         int broj = ((GraffNodeComposite) parent).getListaCvorova().size() + 1;
@@ -38,7 +27,7 @@ public class ProjectFactory extends GraffNodeStore {
                 chooser.removeChooserPanel(p);
             }
         }
-        chooser.setPreviewPanel(new JPanel()); // skini preview
+        chooser.setPreviewPanel(new JPanel());
 
         JPanel top = new JPanel(new BorderLayout(6, 6));
         top.add(new JLabel("Autor:"), BorderLayout.WEST);

@@ -24,19 +24,18 @@ public class SlideView extends JPanel implements Subscriber {
         title.setForeground(Color.BLACK);
 
         JPanel header = new JPanel(new BorderLayout());
-        header.setOpaque(false); // da se vidi bela pozadina roditelja
+        header.setOpaque(false);
         header.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         header.add(title, BorderLayout.CENTER);
 
-        add(header, BorderLayout.NORTH);     // <<< naslov na vrhu
-        add(new JPanel(), BorderLayout.CENTER); // placeholder za sadržaj slajda
+        add(header, BorderLayout.NORTH);
+        add(new JPanel(), BorderLayout.CENTER);
 
-        // Ako želiš da zadrži fiksnu širinu/visinu u koloni:
         setMaximumSize(new Dimension(preferred.width, preferred.height));
 
     }
 
-    /** Ako ti treba druga dimenzija za ovaj slajd – pozovi pa revalidate(). */
+
     public void setSlidePreferredSize(Dimension d) {
         if (d != null) {
             this.preferred = d;
