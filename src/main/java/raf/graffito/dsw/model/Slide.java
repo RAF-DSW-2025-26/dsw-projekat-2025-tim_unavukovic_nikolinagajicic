@@ -12,21 +12,4 @@ public class Slide extends  GraffLeaf implements Publisher {
     public Slide(String ime, GraffNode parent) {
         super(ime, parent);
     }
-
-    @Override
-    public void addSubscriber(Subscriber subscriber) {
-        subscriberList.add(subscriber);
-    }
-
-    @Override
-    public void removeSubscriber(Subscriber subscriber) {
-        subscriberList.remove(subscriber);
-    }
-
-    @Override
-    public void notifyAllSubscribers(Object object) {
-        for(Subscriber subscriber : subscriberList) {
-            subscriber.update(object);
-        }
-    }
 }

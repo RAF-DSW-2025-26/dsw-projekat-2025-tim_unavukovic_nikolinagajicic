@@ -1,6 +1,14 @@
 package raf.graffito.dsw.model;
 
-public abstract class GraffNode {
+import raf.graffito.dsw.observer.Publisher;
+import raf.graffito.dsw.observer.Subscriber;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class GraffNode implements Publisher {
+
+    private List<Subscriber> subscribers = new ArrayList<>();
 
     private GraffNode parent;
 
@@ -27,5 +35,23 @@ public abstract class GraffNode {
 
     public void setIme(String ime) {
         this.ime = ime;
+        notifyAllSubscribers(this);
+    }
+
+    public void  addSubscriber(Subscriber subscriber){
+        subscribers.add(subscriber);
+    }
+    public void removeSubscriber(Subscriber subscriber){
+        subscribers.remove(subscriber);
+    }
+
+    public void removeAllSubscribers(){
+        subscribers.clear();
+    }
+
+    public void notifyAllSubscribers(Object object){
+        for(Subscriber subscriber : subscribers){
+            subscriber.update(object);
+        }
     }
 }

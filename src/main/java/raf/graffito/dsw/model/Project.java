@@ -1,9 +1,14 @@
 package raf.graffito.dsw.model;
 
+import raf.graffito.dsw.observer.Publisher;
+import raf.graffito.dsw.observer.Subscriber;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Project extends GraffNodeComposite {
+
+    private List<Subscriber> subscribers = new ArrayList<>();
 
     private String title,author;
     private int member;
@@ -24,6 +29,7 @@ public class Project extends GraffNodeComposite {
 
     public void setTitle(String title) {
         this.title = title;
+        notifyAllSubscribers(this);
     }
 
     public String getAuthor() {
@@ -32,6 +38,7 @@ public class Project extends GraffNodeComposite {
 
     public void setAuthor(String author) {
         this.author = author;
+        notifyAllSubscribers(this);
     }
 
     public List<Presentation> getListaPrezentacija() {
@@ -63,9 +70,11 @@ public class Project extends GraffNodeComposite {
         if(child instanceof Presentation){
             listaPrezentacija.add((Presentation) child);
             getListaCvorova().add(child);
+            notifyAllSubscribers(this);
         }else if(child instanceof Slide){
             listaSlajdova.add((Slide) child);
             getListaCvorova().add(child);
         }
     }
+
 }
