@@ -42,7 +42,7 @@ public class ProjectFactory extends GraffNodeStore {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE
         );
 
-        if (res != JOptionPane.OK_OPTION) return null; // odustanak
+        if (res != JOptionPane.OK_OPTION) return null;
 
         String autor = tfAutor.getText() == null ? null : tfAutor.getText().trim();
         Color boja = chooser.getColor();

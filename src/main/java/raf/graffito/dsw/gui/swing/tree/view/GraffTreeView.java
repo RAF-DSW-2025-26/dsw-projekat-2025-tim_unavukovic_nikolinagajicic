@@ -20,11 +20,11 @@ public class GraffTreeView extends JTree {
 
 
     public GraffTreeView(DefaultTreeModel defaultTreeModel) {
-        setModel(defaultTreeModel);  // Setujemo model
-        GraffTreeCellRenderer ruTreeCellRenderer = new GraffTreeCellRenderer(); // Kreiramo renderer
-        addTreeSelectionListener(new GraffTreeSelectionListener()); // Dodajemo listener za selekciju
+        setModel(defaultTreeModel);
+        GraffTreeCellRenderer ruTreeCellRenderer = new GraffTreeCellRenderer();
+        addTreeSelectionListener(new GraffTreeSelectionListener());
         setCellEditor(new GraffTreeCellEditor(this, ruTreeCellRenderer));
-        setCellRenderer(ruTreeCellRenderer); // Postavljamo renderer
+        setCellRenderer(ruTreeCellRenderer);
         setEditable(true);
 
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -48,8 +48,6 @@ public class GraffTreeView extends JTree {
     private void onNodeDoubleClick(GraffTreeItem node, javax.swing.tree.TreePath path) {
         if(node.getGraffNode() instanceof Project){
             ProjectView projectView = new ProjectView((Project)node.getGraffNode());
-
-            // sa ovom for petljom izbegavamo dodavanje istog projekta u tabove ponovo
             for(int i = 0; i<MainFrame.getInstance().getTabbedPane().getTabCount(); i++){
                 Component c = MainFrame.getInstance().getTabbedPane().getComponentAt(i);
                 if(c instanceof ProjectView){
@@ -76,8 +74,6 @@ public class GraffTreeView extends JTree {
                 projectView.getTabbedPane().addTab(presentation.getIme(), null, presentationView, "Osnovne informacije");
 
             }
-
-
         }
     }
 }

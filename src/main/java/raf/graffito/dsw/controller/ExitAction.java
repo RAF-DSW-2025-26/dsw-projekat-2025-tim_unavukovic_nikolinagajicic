@@ -10,10 +10,10 @@ import java.net.URL;
 
 public class ExitAction extends AbstactGraffAction {
     public ExitAction() {
-        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK)); // Ovo je prečica za izlaz
-        putValue(SMALL_ICON, loadIcon("/images/exit.png")); // Postavljanje ikonice
-        putValue(NAME, "Exit"); // Ime akcije
-        putValue(SHORT_DESCRIPTION, "Exit"); // Tooltip
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
+        putValue(SMALL_ICON, loadIcon("/images/exit.png"));
+        putValue(NAME, "Exit");
+        putValue(SHORT_DESCRIPTION, "Exit");
     }
 
 
