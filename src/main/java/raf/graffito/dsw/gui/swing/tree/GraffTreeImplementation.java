@@ -35,11 +35,11 @@ public class GraffTreeImplementation implements GraffTree {
         if (!(parent.getGraffNode() instanceof GraffNodeComposite))
             return;
 
-        GraffNode child = createChild(parent.getGraffNode()); // Kreiramo novi child cvor
-        parent.add(new GraffTreeItem(child)); // Dodajemo child cvor u parent cvor u view-u
-        ((GraffNodeComposite) parent.getGraffNode()).addChild(child); // Dodajemo child cvor u parent cvor u modelu podataka
-        treeView.expandPath(treeView.getSelectionPath()); // Prosirujemo parent cvor u view-u da bi se video novi child
-        SwingUtilities.updateComponentTreeUI(treeView); // Osvezavamo view
+        GraffNode child = createChild(parent.getGraffNode());
+        parent.add(new GraffTreeItem(child));
+        ((GraffNodeComposite) parent.getGraffNode()).addChild(child);
+        treeView.expandPath(treeView.getSelectionPath());
+        SwingUtilities.updateComponentTreeUI(treeView);
     }
 
     @Override
@@ -50,10 +50,9 @@ public class GraffTreeImplementation implements GraffTree {
         }
         node.removeFromParent();
         if(node.getGraffNode() instanceof GraffNodeComposite){
-//            ((GraffNodeComposite) node.getGraffNode().getParent()).getListaCvorova().remove(node.getGraffNode());
             ((GraffNodeComposite) node.getGraffNode()).obrisiListu();
         }
-        SwingUtilities.updateComponentTreeUI(treeView); // Osvezavamo view
+        SwingUtilities.updateComponentTreeUI(treeView);
     }
 
 

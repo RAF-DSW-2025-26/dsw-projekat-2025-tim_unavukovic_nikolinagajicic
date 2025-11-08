@@ -17,8 +17,6 @@ public class MainFrame extends JFrame implements Subscriber {
     private JTabbedPane tabbedPane;
 
 
-    // Buduća polja za sve komponente view-a na glavnom prozoru
-
     private MainFrame() {
         initialize();
     }
@@ -26,22 +24,22 @@ public class MainFrame extends JFrame implements Subscriber {
     private void initialize() {
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        Toolkit kit = Toolkit.getDefaultToolkit(); // Toolkit omogućava interakciju sa platformom
-        Dimension screenSize = kit.getScreenSize(); // Veličina ekrana
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = kit.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
         setSize(screenWidth / 2, screenHeight / 2);
-        setLocationRelativeTo(null); // Centriranje prozora na ekranu
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Zatvaranje aplikacije pri zatvaranju prozora
-        setTitle("Graffito"); // Naslov prozora
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Graffito");
 
         actionManager = new ActionManager();
 
-        MyMenuBar menu = new MyMenuBar(actionManager); // Kreiranje menija
-        setJMenuBar(menu); // Postavljanje menija na prozor
+        MyMenuBar menu = new MyMenuBar(actionManager);
+        setJMenuBar(menu);
 
-        MyToolBar toolBar = new MyToolBar(actionManager); // Kreiranje toolbar-a
-        add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
+        MyToolBar toolBar = new MyToolBar(actionManager);
+        add(toolBar, BorderLayout.NORTH);
 
         graffTree = new GraffTreeImplementation();
 

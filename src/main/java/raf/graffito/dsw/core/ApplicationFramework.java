@@ -21,10 +21,9 @@ public class ApplicationFramework {
     public List<NodeDecorator> decorators = new ArrayList<>();
 
     public static ApplicationFramework instance= null;
-    // Buduća polja za model celog projekta
+
 
     private ApplicationFramework() {
-//        messageGenerator.notifyAllSubscribers(new Poruka(TipPoruke.OBAVESTENJE,"proba"));
         this.graffRepository = new GraffRepositoryImpl();
     }
 
@@ -38,9 +37,6 @@ public class ApplicationFramework {
         consoleLogger = (ConsoleLogger) loggerFactory.createLogger("console");
         messageGenerator.addSubscriber(fileLogger);
         messageGenerator.addSubscriber(consoleLogger);
-        /// da li je na dobrom mestu dodat messageGenerator i loggeri
-        /// i kako napravitin pretragu po imenu
-        ///  kako da stavimo u resource folder u fileLoggeru
     }
 
     public static ApplicationFramework getInstance() {
