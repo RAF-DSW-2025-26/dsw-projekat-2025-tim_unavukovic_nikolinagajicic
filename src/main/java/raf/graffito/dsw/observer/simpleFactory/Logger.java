@@ -1,4 +1,4 @@
-package raf.graffito.dsw.observer.factory;
+package raf.graffito.dsw.observer.simpleFactory;
 
 import raf.graffito.dsw.observer.Poruka;
 import raf.graffito.dsw.observer.Subscriber;

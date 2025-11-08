@@ -1,10 +1,13 @@
 package raf.graffito.dsw.view;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.MainFrame;
 import raf.graffito.dsw.model.Presentation;
 import raf.graffito.dsw.model.Project;
 import raf.graffito.dsw.model.Promena;
 import raf.graffito.dsw.model.Slide;
+import raf.graffito.dsw.model.decorator.ColorDecorator;
+import raf.graffito.dsw.model.decorator.NodeDecorator;
 import raf.graffito.dsw.observer.Subscriber;
 
 import javax.swing.*;
@@ -27,6 +30,14 @@ public class ProjectView extends JPanel implements Subscriber {
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         add(tabbedPane, BorderLayout.CENTER);
+        for(NodeDecorator nodeDecorator : ApplicationFramework.getInstance().getDecorators()) {
+            if(nodeDecorator instanceof ColorDecorator) {
+                if(nodeDecorator.getComposite().equals(project)){
+                    tabbedPane.setBackground(((ColorDecorator) nodeDecorator).getColor());
+                }
+            }
+        }
+
     }
 
     @Override
@@ -62,6 +73,8 @@ public class ProjectView extends JPanel implements Subscriber {
                 tabbedPane.addTab(presentation.getIme(), null, presentationView, "Osnovne informacije");
 
             }
+
+
 
         }
 

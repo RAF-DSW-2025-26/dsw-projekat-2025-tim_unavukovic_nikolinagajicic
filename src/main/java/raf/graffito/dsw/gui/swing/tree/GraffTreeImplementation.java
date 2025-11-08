@@ -20,6 +20,7 @@ public class GraffTreeImplementation implements GraffTree {
     private GraffTreeView treeView;
     private DefaultTreeModel treeModel;
 
+
     @Override
     public GraffTreeView generateTree(Workspace workspace){
         GraffTreeItem root = new GraffTreeItem(workspace); // Kreiramo root cvor stabla

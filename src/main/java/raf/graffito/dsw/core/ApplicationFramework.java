@@ -1,13 +1,15 @@
 package raf.graffito.dsw.core;
 import raf.graffito.dsw.gui.swing.MainFrame;
 import raf.graffito.dsw.gui.swing.repository.GraffRepositoryImpl;
+import raf.graffito.dsw.model.decorator.NodeDecorator;
 import raf.graffito.dsw.observer.MessageGenerator;
-import raf.graffito.dsw.observer.Poruka;
-import raf.graffito.dsw.observer.TipPoruke;
-import raf.graffito.dsw.observer.factory.ConsoleLogger;
-import raf.graffito.dsw.observer.factory.FileLogger;
-import raf.graffito.dsw.observer.factory.LoggerFactory;
+import raf.graffito.dsw.observer.simpleFactory.ConsoleLogger;
+import raf.graffito.dsw.observer.simpleFactory.FileLogger;
+import raf.graffito.dsw.observer.simpleFactory.LoggerFactory;
 import raf.graffito.dsw.repository.GraffRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApplicationFramework {
 
@@ -16,6 +18,7 @@ public class ApplicationFramework {
     private ConsoleLogger consoleLogger;
     private FileLogger fileLogger;
     protected GraffRepository graffRepository;
+    public List<NodeDecorator> decorators = new ArrayList<>();
 
     public static ApplicationFramework instance= null;
     // Buduća polja za model celog projekta
@@ -57,5 +60,9 @@ public class ApplicationFramework {
 
     public MessageGenerator getMessageGenerator() {
         return messageGenerator;
+    }
+
+    public List<NodeDecorator> getDecorators() {
+        return decorators;
     }
 }
