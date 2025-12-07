@@ -30,21 +30,28 @@ public class PresentationView extends JPanel implements Subscriber {
 
         content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-        content.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+//        content.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
         scrollPane = new JScrollPane(content,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-        add(scrollPane, BorderLayout.CENTER);
+        JToolBar jToolBar = new JToolBar();
+        jToolBar.setFloatable(false);
+
+
+        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollPane,jToolBar);
+        add(split,BorderLayout.CENTER);
+        split.setDividerLocation(800);
+        split.setOneTouchExpandable(true);
+
     }
     public void addSlide(SlideView slide) {
         slajdovi.add(slide);
-        slide.setOpaque(true);
-        slide.setBackground(Color.WHITE);
         Border ivica  = BorderFactory.createLineBorder(new Color(200,200,200), 1);
         Border razmak = BorderFactory.createEmptyBorder(0, 0, 10, 0);
+
         slide.setBorder(BorderFactory.createCompoundBorder(razmak, ivica));
         slide.setAlignmentX(Component.CENTER_ALIGNMENT);
 
