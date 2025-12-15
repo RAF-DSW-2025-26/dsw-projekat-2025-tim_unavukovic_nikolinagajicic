@@ -1,5 +1,6 @@
 package raf.graffito.dsw.view;
 
+import raf.graffito.dsw.controller.SlideController;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.MainFrame;
 import raf.graffito.dsw.model.Presentation;
@@ -66,7 +67,8 @@ public class ProjectView extends JPanel implements Subscriber {
                 presentation.addSubscriber(presentationView);
 
                 for(Slide slide : presentation.getListaSlajdova()){
-                    SlideView slideView = new SlideView(slide);
+                    SlideController slideController = new SlideController(presentationView, slide);
+                    SlideView slideView = new SlideView(slide, slideController);
                     slide.addSubscriber(slideView);
                     presentationView.addSlide(slideView);
                 }

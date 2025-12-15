@@ -1,7 +1,9 @@
 package raf.graffito.dsw.view;
 
+import raf.graffito.dsw.controller.SlideController;
 import raf.graffito.dsw.model.Slide;
 import raf.graffito.dsw.model.elements.controller.MyMouseListener;
+import raf.graffito.dsw.model.elements.model.DiagramElement;
 import raf.graffito.dsw.model.elements.model.ImageElement;
 import raf.graffito.dsw.model.elements.view.painter.ImagePainter;
 import raf.graffito.dsw.observer.Subscriber;
@@ -18,45 +20,29 @@ public class SlideView extends JPanel implements Subscriber {
     private String naslov;
     private ImagePainter painter;
     private MyMouseListener controller;
+    private JButton jButton = new JButton("Izaberi slike");
+    private SlideController slideController;
 
     private Dimension preferred = new Dimension(700, 400);
 
-    public SlideView(Slide slide) {
+    public SlideView(Slide slide, SlideController slideController) {
         this.slide = slide;
+        this.naslov = slide.getIme();
+        this.slideController = slideController;
 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createLineBorder(new Color(200,200,200)));
 
-        JLabel title = new JLabel(naslov, SwingConstants.CENTER);
-        title.setFont(title.getFont().deriveFont(Font.BOLD, 18f));
-        title.setForeground(Color.WHITE);
-
-//        JPanel header = new JPanel(new BorderLayout());
-//        header.setOpaque(false);
-//        header.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
-//        header.add(title, BorderLayout.CENTER);
-
-//        add(header, BorderLayout.NORTH);
-
-//        JPanel jPanel = new JPanel();
-//        jPanel.setBackground(Color.BLACK);
-//        add(jPanel, BorderLayout.CENTER);
-
-        BufferedImage img;
-
-        try {
-            img = ImageIO.read(new File("images/cvet.jpeg"));
-        } catch (IOException e) {
-            throw new RuntimeException("Ne mogu da učitam sliku", e);
-        }
+//        JLabel title = new JLabel(naslov, SwingConstants.CENTER);
+//        title.setFont(title.getFont().deriveFont(Font.BOLD, 50f));
+//        title.setForeground(Color.BLACK);
+        add(jButton, BorderLayout.NORTH);
+        jButton.addActionListener(e->{
+            slideController.onAddImagesClicked();
+        });
 
 
-        ImageElement el = new ImageElement(img, new Point(0, 0));
-        painter = new ImagePainter(el);
-        controller = new MyMouseListener(painter, this);
-        addMouseListener(controller);
-        addMouseMotionListener(controller);
 
         setMaximumSize(new Dimension(preferred.width, preferred.height));
 
@@ -65,7 +51,20 @@ public class SlideView extends JPanel implements Subscriber {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        painter.paint((Graphics2D) g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        for (DiagramElement el : slide.getDiagramElements()) {
+            if (el instanceof ImageElement imgEl) {
+                g2.drawImage(
+                        imgEl.getImage(),
+                        imgEl.getLokacija().x,
+                        imgEl.getLokacija().y,
+                        imgEl.getDimenzija().width,
+                        imgEl.getDimenzija().height,
+                        null
+                );
+            }
+        }
     }
 
     public void setSlidePreferredSize(Dimension d) {
@@ -84,8 +83,14 @@ public class SlideView extends JPanel implements Subscriber {
     @Override
     public void update(Object object) {
 
-    }
+        if (object instanceof ImageElement) {
 
+            revalidate();
+            repaint();
+
+        }
+
+    }
     public void setSlide(Slide slide) {
         this.slide = slide;
     }

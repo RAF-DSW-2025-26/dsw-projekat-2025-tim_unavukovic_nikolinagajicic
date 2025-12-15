@@ -1,6 +1,7 @@
 package raf.graffito.dsw.gui.swing.tree.view;
 
 
+import raf.graffito.dsw.controller.SlideController;
 import raf.graffito.dsw.gui.swing.MainFrame;
 import raf.graffito.dsw.gui.swing.tree.controller.GraffTreeCellEditor;
 import raf.graffito.dsw.gui.swing.tree.controller.GraffTreeSelectionListener;
@@ -67,7 +68,9 @@ public class GraffTreeView extends JTree {
                 presentation.addSubscriber(presentationView);
 
                 for(Slide slide : presentation.getListaSlajdova()){
-                    SlideView slideView = new SlideView(slide);
+                    SlideController slideController = new SlideController(presentationView, slide);
+
+                    SlideView slideView = new SlideView(slide, slideController);
                     slide.addSubscriber(slideView);
                     presentationView.addSlide(slideView);
                 }
