@@ -17,7 +17,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 
-public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObserver {
+public class SlideView extends JPanel implements Subscriber{
     private Slide slide;
     private String naslov;
     private ImagePainter painter;
@@ -67,7 +67,7 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
             addMouseListener(logoController);
             addMouseMotionListener(logoController);
 
-            slide.getLogo().addObserver(this);
+            slide.getLogo().addSubscriber(this);
         }
     }
 
@@ -77,7 +77,7 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
             removeMouseMotionListener(logoController);
         }
         if (slide.getLogo() != null) {
-            slide.getLogo().removeObserver(this);
+            slide.getLogo().removeSubscriber(this);
         }
     }
 
@@ -117,10 +117,6 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
             revalidate();
             repaint();
         }
-    }
-    @Override
-    public void onLogoChanged(LogoModel model) {
-        repaint();
     }
 
     @Override public Dimension getPreferredSize() {
