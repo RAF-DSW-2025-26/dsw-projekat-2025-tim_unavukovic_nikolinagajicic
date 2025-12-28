@@ -24,4 +24,16 @@ public abstract class DiagramElement {
     public void pomeri(int dx, int dy) {
         lokacija.translate(dx, dy);
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public double getRotationAngle() {
+        return rotationAngle;
+    }
+
+    public void setRotationAngle(double rotationAngle) {
+        this.rotationAngle = rotationAngle;
+    }
 }

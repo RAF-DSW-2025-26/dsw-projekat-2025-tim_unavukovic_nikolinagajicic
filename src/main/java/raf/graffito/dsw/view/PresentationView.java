@@ -1,7 +1,10 @@
 package raf.graffito.dsw.view;
 
+import raf.graffito.dsw.controller.ImageListener;
 import raf.graffito.dsw.gui.swing.MainFrame;
 import raf.graffito.dsw.model.Presentation;
+import raf.graffito.dsw.model.Slide;
+import raf.graffito.dsw.model.elements.model.ImageElement;
 import raf.graffito.dsw.observer.Subscriber;
 
 import javax.swing.*;
@@ -128,6 +131,15 @@ public class PresentationView extends JPanel implements Subscriber {
 
         thumbsPanel.revalidate();
         thumbsPanel.repaint();
+
+        for(SlideView slideView : slajdovi){
+            ImageElement imageElement = new ImageElement(img, new java.awt.Point(0,0));
+
+            ImageListener imageListener = new ImageListener(imageElement, slideView);
+            lbl.addMouseListener(imageListener);
+
+        }
+
     }
 
     public void addSlide(SlideView slide) {
@@ -142,6 +154,7 @@ public class PresentationView extends JPanel implements Subscriber {
         revalidate();
         repaint();
     }
+
     public void clearSlides() {
         slajdovi.clear();
         content.removeAll();

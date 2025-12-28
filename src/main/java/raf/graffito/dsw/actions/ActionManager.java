@@ -10,6 +10,12 @@ public class ActionManager {
     private RenameAutorAction renameAutorAction;
     private RenameNaslovAction renameNaslovAction;
 
+    private AddAction addAction;
+    private DeleteAction deleteAction;
+    private ResizeAction resizeAction;
+    private RotateAction rotateAction;
+    private ZoomAction zoomAction;
+
     public ActionManager() {
         this.exitAction = new ExitAction();
         this.aboutUsAction = new AboutUsAction();
@@ -17,6 +23,12 @@ public class ActionManager {
         this.deleteNodeAction = new DeleteNodeAction();
         this.renameAutorAction = new RenameAutorAction();
         this.renameNaslovAction = new RenameNaslovAction();
+
+        this.addAction = new AddAction();
+        this.deleteAction = new DeleteAction();
+        this.resizeAction = new ResizeAction();
+        this.rotateAction = new RotateAction();
+        this.zoomAction = new ZoomAction();
     }
 
     public RenameAutorAction getRenameAutorAction() {
@@ -53,6 +65,46 @@ public class ActionManager {
 
     public ExitAction getExitAction() {
         return exitAction;
+    }
+
+    public AddAction getAddAction() {
+        return addAction;
+    }
+
+    public void setAddAction(AddAction addAction) {
+        this.addAction = addAction;
+    }
+
+    public DeleteAction getDeleteAction() {
+        return deleteAction;
+    }
+
+    public void setDeleteAction(DeleteAction deleteAction) {
+        this.deleteAction = deleteAction;
+    }
+
+    public ResizeAction getResizeAction() {
+        return resizeAction;
+    }
+
+    public void setResizeAction(ResizeAction resizeAction) {
+        this.resizeAction = resizeAction;
+    }
+
+    public RotateAction getRotateAction() {
+        return rotateAction;
+    }
+
+    public void setRotateAction(RotateAction rotateAction) {
+        this.rotateAction = rotateAction;
+    }
+
+    public ZoomAction getZoomAction() {
+        return zoomAction;
+    }
+
+    public void setZoomAction(ZoomAction zoomAction) {
+        this.zoomAction = zoomAction;
     }
 
     public void setExitAction(ExitAction exitAction) {

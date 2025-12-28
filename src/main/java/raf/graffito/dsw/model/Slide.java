@@ -29,7 +29,18 @@ public class Slide extends  GraffLeaf implements Publisher {
 
     public void addElement(ImageElement imageElement) {
         diagramElements.add(imageElement);
-        notifyAllSubscribers(imageElement);
+        notifyAllSubscribers(diagramElements);
+    }
+
+    public void removeElement(ImageElement imageElement) {
+        diagramElements.remove(imageElement);
+        notifyAllSubscribers(diagramElements);
+    }
+
+    public void rotateElement(ImageElement imageElement) {
+        double angle = Math.toRadians(90); // [cite: 89]
+        imageElement.setRotationAngle(imageElement.getRotationAngle() + angle);
+        notifyAllSubscribers(diagramElements);
     }
 
     public LogoModel getLogo() {
