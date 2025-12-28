@@ -11,7 +11,7 @@ public class DeleteAction extends AbstactGraffAction {
 
     public DeleteAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
-        putValue(SMALL_ICON, loadIcon("/images/aboutUs.png"));
+        putValue(SMALL_ICON, loadIcon("/images/trash_can.png"));
         putValue(NAME, "Delete");
         putValue(SHORT_DESCRIPTION, "Delete");
     }

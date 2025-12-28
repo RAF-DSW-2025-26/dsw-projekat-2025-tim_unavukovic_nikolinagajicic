@@ -11,7 +11,7 @@ public class RotateAction extends AbstactGraffAction {
 
     public RotateAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
-        putValue(SMALL_ICON, loadIcon("/images/aboutUs.png"));
+        putValue(SMALL_ICON, loadIcon("/images/rotate_right.png"));
         putValue(NAME, "Rotate");
         putValue(SHORT_DESCRIPTION, "rotate");
     }

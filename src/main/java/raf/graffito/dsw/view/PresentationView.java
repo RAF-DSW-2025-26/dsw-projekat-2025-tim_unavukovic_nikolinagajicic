@@ -42,14 +42,12 @@ public class PresentationView extends JPanel implements Subscriber {
 
         content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-//        content.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
         scrollPane = new JScrollPane(content,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-        // Panel koji drži sličice jednu ispod druge
         thumbsPanel = new JPanel();
         thumbsPanel.setLayout(new BoxLayout(thumbsPanel, BoxLayout.Y_AXIS));
         thumbsPanel.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
@@ -90,10 +88,9 @@ public class PresentationView extends JPanel implements Subscriber {
         int viewportW = thumbScrollPane.getViewport().getWidth();
         if (viewportW <= 0) return;
 
-        int targetW = viewportW - 16; // malo margine zbog bordera/paddinga
+        int targetW = viewportW - 16;
         if (targetW < 50) targetW = 50;
 
-        // FIT u (targetW x THUMB_H) bez deformacije
         double sx = targetW / (double) orig.getWidth();
         double sy = THUMB_H / (double) orig.getHeight();
         double s = Math.min(sx, sy);
@@ -112,21 +109,18 @@ public class PresentationView extends JPanel implements Subscriber {
         lbl.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
         lbl.setBorder(BorderFactory.createLineBorder(new java.awt.Color(230,230,230)));
 
-        // bitno za BoxLayout: neka popuni širinu, a visina fiksna
         lbl.setMaximumSize(new Dimension(Integer.MAX_VALUE, THUMB_H));
         lbl.setPreferredSize(new Dimension(10, THUMB_H));
         lbl.setMinimumSize(new Dimension(10, THUMB_H));
         lbl.setHorizontalAlignment(SwingConstants.CENTER);
         lbl.setVerticalAlignment(SwingConstants.CENTER);
 
-        // zapamti original u client property da možeš kasnije opet da skaluješ
         lbl.putClientProperty("orig", img);
 
         thumbsPanel.add(lbl);
         thumbsPanel.add(Box.createVerticalStrut(10));
         thumbLabels.add(lbl);
 
-        // inicijalni scale (ako već imamo širinu viewport-a)
         scaleLabelToViewportWidth(lbl);
 
         thumbsPanel.revalidate();
@@ -198,7 +192,6 @@ public class PresentationView extends JPanel implements Subscriber {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setMultiSelectionEnabled(multiSelect);
 
-        // filter za slike
         chooser.setAcceptAllFileFilterUsed(true);
         chooser.addChoosableFileFilter(new FileNameExtensionFilter(
                 "Images (*.png, *.jpg, *.jpeg, *.gif, *.bmp, *.webp)",

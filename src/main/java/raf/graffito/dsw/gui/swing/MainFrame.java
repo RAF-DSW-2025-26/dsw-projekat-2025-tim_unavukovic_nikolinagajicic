@@ -45,17 +45,9 @@ public class MainFrame extends JFrame implements Subscriber {
 
         MyToolBar toolBar = new MyToolBar(actionManager);
 
-        // --- INTEGRACIJA LOGOA ---
-        // 1. Kreiramo Model (pozicija 100,100, skala 1.0, rotacija 0)
         KrunaModel logoModel = new KrunaModel(100, 100, 1.0, 0.0);
 
-        // 2. Kreiramo View i prosleđujemo mu model
-
-
-        // (Opciono) Možete ga dodati na ToolBar ili negde drugde
-        // Ovde ga dodajemo na ToolBar kao primer da se vidi odmah
         toolBar.addSeparator();
-
 
         add(toolBar, BorderLayout.NORTH);
 

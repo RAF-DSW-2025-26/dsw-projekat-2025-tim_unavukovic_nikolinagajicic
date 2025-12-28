@@ -39,20 +39,16 @@ public class LogoPainter {
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // === PRIMENA MATRICE IZ MODELA ===
         AffineTransform modelTransform = model.getTransformMatrix();
         g.transform(modelTransform);
 
-        // Crtanje ispune
         g.setColor(model.getColor());
         g.fill(crownShape);
 
-        // Crtanje ivice
         g.setColor(Color.BLACK);
         g.setStroke(new BasicStroke(2));
         g.draw(crownShape);
 
-        // Kontrole
         paintHandles(g);
 
         g.setTransform(oldTransform);
@@ -67,7 +63,6 @@ public class LogoPainter {
         Rectangle2D bounds = crownShape.getBounds2D();
         g.draw(bounds);
 
-        // Kontrola za skaliranje
         double scaleX = bounds.getMaxX();
         double scaleY = bounds.getMaxY();
         Rectangle2D scaleHandle = new Rectangle2D.Double(
@@ -81,7 +76,6 @@ public class LogoPainter {
         g.setColor(Color.BLACK);
         g.draw(scaleHandle);
 
-        // Kontrola za rotaciju
         double rotX = bounds.getCenterX();
         double rotY = bounds.getMinY() - ROTATION_HANDLE_OFFSET;
 
@@ -100,7 +94,6 @@ public class LogoPainter {
         g.draw(rotHandle);
     }
 
-    // === HIT DETECTION ===
 
     public boolean contains(Point screenPoint) {
         Point2D localPoint = model.getInverseTransformMatrix().transform(screenPoint, null);
