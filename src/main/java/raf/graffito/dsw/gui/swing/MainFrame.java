@@ -7,6 +7,7 @@ import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
 import raf.graffito.dsw.model.KrunaModel;
 import raf.graffito.dsw.observer.Poruka;
 import raf.graffito.dsw.observer.Subscriber;
+import raf.graffito.dsw.state.StateManager;
 
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private GraffTree graffTree;
     private JTabbedPane tabbedPane;
 
+    private StateManager stateManager;
 
     private MainFrame() {
         initialize();
@@ -36,6 +38,7 @@ public class MainFrame extends JFrame implements Subscriber {
         setTitle("Graffito");
 
         actionManager = new ActionManager();
+        stateManager = new StateManager();
 
         MyMenuBar menu = new MyMenuBar(actionManager);
         setJMenuBar(menu);
@@ -55,6 +58,10 @@ public class MainFrame extends JFrame implements Subscriber {
 
 
         add(toolBar, BorderLayout.NORTH);
+
+        StateBar stateBar = new StateBar(actionManager);
+        add(stateBar, BorderLayout.WEST);
+
 
         graffTree = new GraffTreeImplementation();
 
@@ -94,5 +101,29 @@ public class MainFrame extends JFrame implements Subscriber {
 
     public JTabbedPane getTabbedPane() {
         return tabbedPane;
+    }
+
+    public void startAddState(){
+        this.stateManager.setAddState();
+    }
+
+    public void startDeleteState(){
+        this.stateManager.setDeleteState();
+    }
+
+    public void startResizeState(){
+        this.stateManager.setResizeState();
+    }
+
+    public void startRotateState(){
+        this.stateManager.setRotateState();
+    }
+
+    public void startZoomState(){
+        this.stateManager.setZoomState();
+    }
+
+    public StateManager getStateManager() {
+        return stateManager;
     }
 }

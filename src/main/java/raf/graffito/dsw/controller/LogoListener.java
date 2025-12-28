@@ -1,14 +1,13 @@
 package raf.graffito.dsw.controller;
 
-import raf.graffito.dsw.model.GraffNode;
 import raf.graffito.dsw.model.LogoModel;
 import raf.graffito.dsw.view.LogoPainter;
-import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class LogoController extends MouseAdapter {
+public class LogoListener extends MouseAdapter {
     private LogoModel model;
     private LogoPainter painter;
     private Component view;
@@ -20,7 +19,7 @@ public class LogoController extends MouseAdapter {
         NONE, MOVING, SCALING, ROTATING
     }
 
-    public LogoController(LogoModel model, Component view) {
+    public LogoListener(LogoModel model, Component view) {
         this.model = model;
         this.view = view;
         this.painter = new LogoPainter(model);

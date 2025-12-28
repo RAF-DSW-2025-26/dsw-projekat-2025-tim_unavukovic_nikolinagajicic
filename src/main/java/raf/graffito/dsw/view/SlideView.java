@@ -1,6 +1,6 @@
 package raf.graffito.dsw.view;
 
-import raf.graffito.dsw.controller.LogoController;
+import raf.graffito.dsw.controller.LogoListener;
 import raf.graffito.dsw.controller.SlideController;
 import raf.graffito.dsw.model.KrunaModel;
 import raf.graffito.dsw.model.LogoModel;
@@ -15,6 +15,7 @@ import raf.graffito.dsw.observer.Subscriber;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 
 public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObserver {
     private Slide slide;
@@ -23,12 +24,14 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
     private MyMouseListener controller;
     private JButton jButton = new JButton("Izaberi slike");
     private SlideController slideController;
+    private AffineTransform currentTransform = new AffineTransform();
 
-    private LogoController logoController;
+
+    private LogoListener logoController;
     private LogoPainter logoPainter;
 
     // Dodajemo polje za kontroler da bismo mogli da ga uklonimo kad se menja slajd
-    private LogoController currentLogoController;
+    private LogoListener currentLogoController;
 
     private Dimension preferred = new Dimension(700, 400);
 
@@ -59,7 +62,7 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
     private void setupLogo() {
         if (slide.getLogo() != null) {
             logoPainter = new LogoPainter(slide.getLogo());
-            logoController = new LogoController(slide.getLogo(), this);
+            logoController = new LogoListener(slide.getLogo(), this);
 
             addMouseListener(logoController);
             addMouseMotionListener(logoController);
@@ -86,6 +89,7 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
         // 1. Prvo iscrtavamo elemente slajda (slike)
         for (DiagramElement el : slide.getDiagramElements()) {
             if (el instanceof ImageElement imgEl) {
+
                 g2.drawImage(
                         imgEl.getImage(),
                         imgEl.getLokacija().x,
@@ -94,6 +98,7 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
                         imgEl.getDimenzija().height,
                         null
                 );
+
             }
         }
     // --- INTEGRACIJA LOGOA ---
@@ -124,10 +129,8 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
 
     @Override
     public void update(Object object) {
-        if (object instanceof ImageElement) {
-            revalidate();
-            repaint();
-        }
+        revalidate();
+        repaint();
     }
 
     public void setSlide(Slide slide) {
@@ -142,7 +145,7 @@ public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObser
 
         // 2. Dodavanje novog kontrolera za logo
         if (slide.getLogo() != null) {
-            currentLogoController = new LogoController(slide.getLogo(), this);
+            currentLogoController = new LogoListener(slide.getLogo(), this);
             this.addMouseListener(currentLogoController);       // Za klikove
             this.addMouseMotionListener(currentLogoController); // Za pomeranje (drag)
             // Ispis za debug da znaš da je kontroler dodat
