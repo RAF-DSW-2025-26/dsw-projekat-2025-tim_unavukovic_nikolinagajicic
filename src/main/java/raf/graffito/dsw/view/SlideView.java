@@ -1,6 +1,9 @@
 package raf.graffito.dsw.view;
 
+import raf.graffito.dsw.controller.LogoController;
 import raf.graffito.dsw.controller.SlideController;
+import raf.graffito.dsw.model.KrunaModel;
+import raf.graffito.dsw.model.LogoModel;
 import raf.graffito.dsw.model.Slide;
 import raf.graffito.dsw.model.elements.controller.MyMouseListener;
 import raf.graffito.dsw.model.elements.model.DiagramElement;
@@ -8,14 +11,12 @@ import raf.graffito.dsw.model.elements.model.ImageElement;
 import raf.graffito.dsw.model.elements.view.painter.ImagePainter;
 import raf.graffito.dsw.observer.Subscriber;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.ActionListener;
 
-public class SlideView extends JPanel implements Subscriber {
+public class SlideView extends JPanel implements Subscriber, LogoModel.LogoObserver {
     private Slide slide;
     private String naslov;
     private ImagePainter painter;
@@ -23,7 +24,20 @@ public class SlideView extends JPanel implements Subscriber {
     private JButton jButton = new JButton("Izaberi slike");
     private SlideController slideController;
 
+    private LogoController logoController;
+    private LogoPainter logoPainter;
+
+    // Dodajemo polje za kontroler da bismo mogli da ga uklonimo kad se menja slajd
+    private LogoController currentLogoController;
+
     private Dimension preferred = new Dimension(700, 400);
+
+    // --- DODATO ZA LOGO ---
+    // Model: Pozicija (40, 40) je gornji levi ugao, skala 1.0, rotacija 0
+    private final KrunaModel logoModel = new KrunaModel(40, 40, 1.0, 0.0);
+    // Renderer: Klasa koja zna da crta
+    private final KrunaRenderer logoRenderer = new KrunaRenderer();
+    // ---------------------
 
     public SlideView(Slide slide, SlideController slideController) {
         this.slide = slide;
@@ -34,18 +48,34 @@ public class SlideView extends JPanel implements Subscriber {
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createLineBorder(new Color(200,200,200)));
 
-//        JLabel title = new JLabel(naslov, SwingConstants.CENTER);
-//        title.setFont(title.getFont().deriveFont(Font.BOLD, 50f));
-//        title.setForeground(Color.BLACK);
         add(jButton, BorderLayout.NORTH);
-        jButton.addActionListener(e->{
-            slideController.onAddImagesClicked();
-        });
-
-
+        jButton.addActionListener(slideController);
 
         setMaximumSize(new Dimension(preferred.width, preferred.height));
 
+        setupLogo();
+    }
+
+    private void setupLogo() {
+        if (slide.getLogo() != null) {
+            logoPainter = new LogoPainter(slide.getLogo());
+            logoController = new LogoController(slide.getLogo(), this);
+
+            addMouseListener(logoController);
+            addMouseMotionListener(logoController);
+
+            slide.getLogo().addObserver(this);
+        }
+    }
+
+    private void cleanupLogo() {
+        if (logoController != null) {
+            removeMouseListener(logoController);
+            removeMouseMotionListener(logoController);
+        }
+        if (slide.getLogo() != null) {
+            slide.getLogo().removeObserver(this);
+        }
     }
 
     @Override
@@ -53,6 +83,7 @@ public class SlideView extends JPanel implements Subscriber {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        // 1. Prvo iscrtavamo elemente slajda (slike)
         for (DiagramElement el : slide.getDiagramElements()) {
             if (el instanceof ImageElement imgEl) {
                 g2.drawImage(
@@ -65,6 +96,13 @@ public class SlideView extends JPanel implements Subscriber {
                 );
             }
         }
+    // --- INTEGRACIJA LOGOA ---
+        // Iscrtavamo logo na kraju da bude iznad ostalih elemenata
+        if (slide.getLogo() != null) {
+            // Obavezno importujte LogoPainter na vrhu fajla ako već niste
+            LogoPainter logoPainter = new LogoPainter(slide.getLogo());
+            logoPainter.paint(g2);
+        }
     }
 
     public void setSlidePreferredSize(Dimension d) {
@@ -75,6 +113,10 @@ public class SlideView extends JPanel implements Subscriber {
             repaint();
         }
     }
+    @Override
+    public void onLogoChanged(LogoModel model) {
+        repaint();
+    }
 
     @Override public Dimension getPreferredSize() {
         return preferred;
@@ -82,17 +124,32 @@ public class SlideView extends JPanel implements Subscriber {
 
     @Override
     public void update(Object object) {
-
         if (object instanceof ImageElement) {
-
             revalidate();
             repaint();
+        }
+    }
 
+    public void setSlide(Slide slide) {
+        // 1. Skidanje starog kontrolera (ako postoji)
+        if (currentLogoController != null) {
+            this.removeMouseListener(currentLogoController);
+            this.removeMouseMotionListener(currentLogoController);
         }
 
-    }
-    public void setSlide(Slide slide) {
         this.slide = slide;
+        this.setName(slide.getIme());
+
+        // 2. Dodavanje novog kontrolera za logo
+        if (slide.getLogo() != null) {
+            currentLogoController = new LogoController(slide.getLogo(), this);
+            this.addMouseListener(currentLogoController);       // Za klikove
+            this.addMouseMotionListener(currentLogoController); // Za pomeranje (drag)
+            // Ispis za debug da znaš da je kontroler dodat
+            System.out.println("Logo kontroler dodat za slajd: " + slide.getIme());
+        }
+
+        this.repaint();
     }
 
     public void setNaslov(String naslov) {

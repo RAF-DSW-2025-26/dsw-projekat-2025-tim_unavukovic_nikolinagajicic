@@ -5,16 +5,23 @@ import raf.graffito.dsw.model.elements.model.ImageElement;
 import raf.graffito.dsw.view.PresentationView;
 import raf.graffito.dsw.view.SlideView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class SlideController {
+public class SlideController implements ActionListener {
     private PresentationView presentationView;
     private Slide slide;
 
     public SlideController( PresentationView presentationView, Slide slide) {
         this.presentationView = presentationView;
         this.slide = slide;
+    }
+
+
+    public void actionPerformed(ActionEvent e) {
+        onAddImagesClicked();
     }
 
     public void onAddImagesClicked() {

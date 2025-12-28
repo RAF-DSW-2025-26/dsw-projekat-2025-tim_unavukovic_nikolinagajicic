@@ -12,8 +12,11 @@ public class Slide extends  GraffLeaf implements Publisher {
     private List<Subscriber> subscriberList = new ArrayList<>();
     private List<DiagramElement> diagramElements = new ArrayList<>();
 
+    private LogoModel logo;
+
     public Slide(String ime, GraffNode parent) {
         super(ime, parent);
+        this.logo = new LogoModel(50, 50, 1.5, 15.0);
     }
 
     public List<DiagramElement> getDiagramElements() {
@@ -27,5 +30,13 @@ public class Slide extends  GraffLeaf implements Publisher {
     public void addElement(ImageElement imageElement) {
         diagramElements.add(imageElement);
         notifyAllSubscribers(imageElement);
+    }
+
+    public LogoModel getLogo() {
+        return logo;
+    }
+
+    public void setLogo(LogoModel logo) {
+        this.logo = logo;
     }
 }
