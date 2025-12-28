@@ -1,18 +1,21 @@
 package raf.graffito.dsw.model;
 
+import raf.graffito.dsw.observer.Publisher;
+import raf.graffito.dsw.observer.Subscriber;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogoModel {
+public class LogoModel implements Publisher {
     private double x;
     private double y;
     private double scale;
     private double rotation; // u stepenima
     private Color color;
 
-    private List<LogoObserver> observers = new ArrayList<>();
+    private List<Subscriber> subscribers = new ArrayList<>();
 
     public LogoModel(double x, double y, double scale, double rotation) {
         this.x = x;
@@ -53,7 +56,7 @@ public class LogoModel {
 
     public void setX(double x) {
         this.x = x;
-        notifyObservers();
+        notifyAllSubscribers(null);
     }
 
     public double getY() {
@@ -62,7 +65,7 @@ public class LogoModel {
 
     public void setY(double y) {
         this.y = y;
-        notifyObservers();
+        notifyAllSubscribers(null);
     }
 
     public double getScale() {
@@ -72,7 +75,7 @@ public class LogoModel {
     public void setScale(double scale) {
         if (scale > 0.1) {
             this.scale = scale;
-            notifyObservers();
+            notifyAllSubscribers(null);
         }
     }
 
@@ -82,7 +85,7 @@ public class LogoModel {
 
     public void setRotation(double rotation) {
         this.rotation = rotation;
-        notifyObservers();
+        notifyAllSubscribers(null);
     }
 
     public Color getColor() {
@@ -91,7 +94,7 @@ public class LogoModel {
 
     public void setColor(Color color) {
         this.color = color;
-        notifyObservers();
+        notifyAllSubscribers(null);
     }
 
     // === TRANSFORMACIONE OPERACIJE ===
@@ -99,14 +102,15 @@ public class LogoModel {
     public void translate(double dx, double dy) {
         this.x += dx;
         this.y += dy;
-        notifyObservers();
+        notifyAllSubscribers(null);
+
     }
 
     public void scaleBy(double factor) {
         double newScale = this.scale * factor;
         if (newScale > 0.1 && newScale < 10.0) {
             this.scale = newScale;
-            notifyObservers();
+            notifyAllSubscribers(null);
         }
     }
 
@@ -114,26 +118,25 @@ public class LogoModel {
         this.rotation += angleDegrees;
         while (this.rotation >= 360) this.rotation -= 360;
         while (this.rotation < 0) this.rotation += 360;
-        notifyObservers();
+        notifyAllSubscribers(null);
     }
 
-    // === OBSERVER PATTERN ===
 
-    public void addObserver(LogoObserver observer) {
-        observers.add(observer);
+    @Override
+    public void addSubscriber(Subscriber subscriber) {
+        subscribers.add(subscriber);
     }
 
-    public void removeObserver(LogoObserver observer) {
-        observers.remove(observer);
+    @Override
+    public void removeSubscriber(Subscriber subscriber) {
+        subscribers.remove(subscriber);
     }
 
-    private void notifyObservers() {
-        for (LogoObserver observer : observers) {
-            observer.onLogoChanged(this);
+    @Override
+    public void notifyAllSubscribers(Object object) {
+        for(Subscriber subscriber : subscribers) {
+            subscriber.update(object);
         }
     }
 
-    public interface LogoObserver {
-        void onLogoChanged(LogoModel model);
-    }
 }
