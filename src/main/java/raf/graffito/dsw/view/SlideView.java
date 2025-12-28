@@ -30,17 +30,12 @@ public class SlideView extends JPanel implements Subscriber{
     private LogoListener logoController;
     private LogoPainter logoPainter;
 
-    // Dodajemo polje za kontroler da bismo mogli da ga uklonimo kad se menja slajd
     private LogoListener currentLogoController;
 
     private Dimension preferred = new Dimension(700, 400);
 
-    // --- DODATO ZA LOGO ---
-    // Model: Pozicija (40, 40) je gornji levi ugao, skala 1.0, rotacija 0
     private final KrunaModel logoModel = new KrunaModel(40, 40, 1.0, 0.0);
-    // Renderer: Klasa koja zna da crta
     private final KrunaRenderer logoRenderer = new KrunaRenderer();
-    // ---------------------
 
     public SlideView(Slide slide, SlideController slideController) {
         this.slide = slide;
@@ -86,7 +81,6 @@ public class SlideView extends JPanel implements Subscriber{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // 1. Prvo iscrtavamo elemente slajda (slike)
         for (DiagramElement el : slide.getDiagramElements()) {
             if (el instanceof ImageElement imgEl) {
 
@@ -101,10 +95,8 @@ public class SlideView extends JPanel implements Subscriber{
 
             }
         }
-    // --- INTEGRACIJA LOGOA ---
-        // Iscrtavamo logo na kraju da bude iznad ostalih elemenata
+
         if (slide.getLogo() != null) {
-            // Obavezno importujte LogoPainter na vrhu fajla ako već niste
             LogoPainter logoPainter = new LogoPainter(slide.getLogo());
             logoPainter.paint(g2);
         }
@@ -130,7 +122,6 @@ public class SlideView extends JPanel implements Subscriber{
     }
 
     public void setSlide(Slide slide) {
-        // 1. Skidanje starog kontrolera (ako postoji)
         if (currentLogoController != null) {
             this.removeMouseListener(currentLogoController);
             this.removeMouseMotionListener(currentLogoController);
@@ -139,12 +130,10 @@ public class SlideView extends JPanel implements Subscriber{
         this.slide = slide;
         this.setName(slide.getIme());
 
-        // 2. Dodavanje novog kontrolera za logo
         if (slide.getLogo() != null) {
             currentLogoController = new LogoListener(slide.getLogo(), this);
-            this.addMouseListener(currentLogoController);       // Za klikove
-            this.addMouseMotionListener(currentLogoController); // Za pomeranje (drag)
-            // Ispis za debug da znaš da je kontroler dodat
+            this.addMouseListener(currentLogoController);
+            this.addMouseMotionListener(currentLogoController);
             System.out.println("Logo kontroler dodat za slajd: " + slide.getIme());
         }
 

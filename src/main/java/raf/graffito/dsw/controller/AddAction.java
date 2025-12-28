@@ -13,7 +13,7 @@ public class AddAction extends AbstactGraffAction {
 
     public AddAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
-        putValue(SMALL_ICON, loadIcon("/images/aboutUs.png"));
+        putValue(SMALL_ICON, loadIcon("/images/addState.png"));
         putValue(NAME, "Add");
         putValue(SHORT_DESCRIPTION, "Add");
     }

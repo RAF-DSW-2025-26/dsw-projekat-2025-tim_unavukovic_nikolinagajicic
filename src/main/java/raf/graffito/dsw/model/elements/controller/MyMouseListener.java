@@ -47,7 +47,6 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
         start = e.getPoint();
 
-        // update painter shape
         ImageElement elem = (ImageElement) painter.getElement();
         painter.oblik = new Rectangle(elem.getLokacija().x,
                 elem.getLokacija().y,

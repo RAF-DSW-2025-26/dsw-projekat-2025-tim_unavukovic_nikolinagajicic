@@ -30,7 +30,6 @@ public class SlideController implements ActionListener {
             try {
                 BufferedImage img = javax.imageio.ImageIO.read(f);
                 if (img == null) continue;
-                /// slide.addElement(new ImageElement(img, new java.awt.Point(0,0)));
                 presentationView.addSlideThumbnail(img);
             } catch (Exception ex) {
                 ex.printStackTrace();

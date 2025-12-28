@@ -25,9 +25,6 @@ public class LogoModel implements Publisher {
         this.color = new Color(255, 215, 0); // Zlatna boja
     }
 
-    /**
-     * Vraća AffineTransform matricu koja kombinuje sve transformacije
-     */
     public AffineTransform getTransformMatrix() {
         AffineTransform matrix = new AffineTransform();
         matrix.translate(x, y);
@@ -36,9 +33,6 @@ public class LogoModel implements Publisher {
         return matrix;
     }
 
-    /**
-     * Vraća inverznu matricu za hit detection
-     */
     public AffineTransform getInverseTransformMatrix() {
         try {
             return getTransformMatrix().createInverse();
@@ -48,7 +42,6 @@ public class LogoModel implements Publisher {
         }
     }
 
-    // === GETTERS & SETTERS ===
 
     public double getX() {
         return x;
@@ -97,7 +90,6 @@ public class LogoModel implements Publisher {
         notifyAllSubscribers(null);
     }
 
-    // === TRANSFORMACIONE OPERACIJE ===
 
     public void translate(double dx, double dy) {
         this.x += dx;
