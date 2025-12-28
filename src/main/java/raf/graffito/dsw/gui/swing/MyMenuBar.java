@@ -20,6 +20,14 @@ public class MyMenuBar extends JMenuBar {
         fileMenu.add(actionManager.getDeleteNodeAction());
         fileMenu.add(actionManager.getRenameAutorAction());
         fileMenu.add(actionManager.getRenameNaslovAction());
+
+        fileMenu.add(actionManager.getUndoAction());
+        fileMenu.add(actionManager.getRedoAction());
+        fileMenu.addSeparator();
         add(fileMenu);
+
+
+        fileMenu.add(actionManager.getUndoAction());
+        fileMenu.add(actionManager.getRedoAction());
     }
 }

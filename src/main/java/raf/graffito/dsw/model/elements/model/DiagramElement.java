@@ -36,4 +36,12 @@ public abstract class DiagramElement {
     public void setRotationAngle(double rotationAngle) {
         this.rotationAngle = rotationAngle;
     }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    public void setDimenzija(Dimension dimenzija) {
+        this.dimenzija = dimenzija;
+    }
+
 }

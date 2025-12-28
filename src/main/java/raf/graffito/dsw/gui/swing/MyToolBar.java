@@ -18,5 +18,8 @@ public class MyToolBar extends JToolBar {
         add(actionManager.getRenameAutorAction());
         add(actionManager.getRenameNaslovAction());
 
+        add(actionManager.getUndoAction());
+        add(actionManager.getRedoAction());
+
     }
 }

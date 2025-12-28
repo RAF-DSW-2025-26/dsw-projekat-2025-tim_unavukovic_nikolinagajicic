@@ -14,5 +14,6 @@ public class StateBar extends JToolBar {
         add(actionManager.getResizeAction());
         add(actionManager.getRotateAction());
         add(actionManager.getZoomAction());
+        add(actionManager.getSelectAction());
     }
 }

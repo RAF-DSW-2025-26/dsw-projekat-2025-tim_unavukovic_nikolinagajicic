@@ -93,6 +93,8 @@ public class SlideView extends JPanel implements Subscriber{
                         null
                 );
 
+
+
             }
         }
 

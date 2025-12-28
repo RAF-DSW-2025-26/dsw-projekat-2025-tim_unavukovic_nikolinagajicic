@@ -15,6 +15,13 @@ public class ActionManager {
     private ResizeAction resizeAction;
     private RotateAction rotateAction;
     private ZoomAction zoomAction;
+    private SelectAction selectAction;
+
+    private UndoAction undoAction;
+    private RedoAction redoAction;
+
+    private CopyAction copyAction;
+    private PasteAction pasteAction;
 
     public ActionManager() {
         this.exitAction = new ExitAction();
@@ -29,6 +36,13 @@ public class ActionManager {
         this.resizeAction = new ResizeAction();
         this.rotateAction = new RotateAction();
         this.zoomAction = new ZoomAction();
+        this.selectAction = new SelectAction();
+
+        this.undoAction = new UndoAction();
+        this.redoAction = new RedoAction();
+
+        this.copyAction = new CopyAction();
+        this.pasteAction = new PasteAction(copyAction);
     }
 
     public RenameAutorAction getRenameAutorAction() {
@@ -102,6 +116,7 @@ public class ActionManager {
     public ZoomAction getZoomAction() {
         return zoomAction;
     }
+    public SelectAction getSelectAction() { return selectAction; }
 
     public void setZoomAction(ZoomAction zoomAction) {
         this.zoomAction = zoomAction;
@@ -117,5 +132,26 @@ public class ActionManager {
 
     public void setAboutUsAction(AboutUsAction aboutUsAction) {
         this.aboutUsAction = aboutUsAction;
+    }
+
+    public UndoAction getUndoAction() {
+        return undoAction;
+    }
+
+    public void setUndoAction(UndoAction undoAction) {
+        this.undoAction = undoAction;
+    }
+
+    public RedoAction getRedoAction() {
+        return redoAction;
+    }
+
+    public void setRedoAction(RedoAction redoAction) {
+        this.redoAction = redoAction;
+    }
+    public CopyAction getCopyAction() { return copyAction; }
+    public PasteAction getPasteAction() { return pasteAction; }
+    public void setSelectAction(SelectAction selectAction) {
+        this.selectAction = selectAction;
     }
 }
