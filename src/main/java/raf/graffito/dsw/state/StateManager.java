@@ -10,6 +10,7 @@ public class StateManager {
     private ResizeState resizeState;
     private RotateState rotateState;
     private ZoomState zoomState;
+    private SelectState selectState;
 
 
     public StateManager() {
@@ -22,6 +23,7 @@ public class StateManager {
         resizeState = new ResizeState();
         rotateState = new RotateState();
         zoomState = new ZoomState();
+        selectState = new SelectState();
         currentState = addState;
     }
 
@@ -47,6 +49,10 @@ public class StateManager {
 
     public void setZoomState(){
         currentState = zoomState;
+    }
+
+    public void setSelectState(){
+        currentState =  selectState;
     }
 
 }

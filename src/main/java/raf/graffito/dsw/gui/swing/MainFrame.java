@@ -2,13 +2,15 @@ package raf.graffito.dsw.gui.swing;
 
 import raf.graffito.dsw.actions.ActionManager;
 import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.gui.swing.MyMenuBar;
+import raf.graffito.dsw.gui.swing.MyToolBar;
+import raf.graffito.dsw.gui.swing.StateBar;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
 import raf.graffito.dsw.model.KrunaModel;
 import raf.graffito.dsw.observer.Poruka;
 import raf.graffito.dsw.observer.Subscriber;
 import raf.graffito.dsw.state.StateManager;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +38,8 @@ public class MainFrame extends JFrame implements Subscriber {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Graffito");
+
+        stateManager = new StateManager();
 
         actionManager = new ActionManager();
         stateManager = new StateManager();
@@ -99,6 +103,10 @@ public class MainFrame extends JFrame implements Subscriber {
         this.stateManager.setAddState();
     }
 
+    public void startSelectState(){
+        this.stateManager.setSelectState();
+    }
+
     public void startDeleteState(){
         this.stateManager.setDeleteState();
     }
@@ -115,7 +123,30 @@ public class MainFrame extends JFrame implements Subscriber {
         this.stateManager.setZoomState();
     }
 
+    public static void setInstance(MainFrame instance) {
+        MainFrame.instance = instance;
+    }
+
+    public void setActionManager(ActionManager actionManager) {
+        this.actionManager = actionManager;
+    }
+
+    public void setGraffTree(GraffTree graffTree) {
+        this.graffTree = graffTree;
+    }
+
+    public void setTabbedPane(JTabbedPane tabbedPane) {
+        this.tabbedPane = tabbedPane;
+    }
+
     public StateManager getStateManager() {
         return stateManager;
     }
+
+    public void setStateManager(StateManager stateManager) {
+        this.stateManager = stateManager;
+    }
+
+
+
 }
